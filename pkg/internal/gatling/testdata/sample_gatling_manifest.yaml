@@ -35,7 +35,7 @@ spec:
         effect: "NoSchedule"
   cloudStorageSpec:
     provider: "gcp"
-    bucket: "zozo-mlops-dev-gatling-operator-reports"
+    bucket: "gatling-operator-reports"
   notificationServiceSpec:
     provider: "slack"                                     # Notification provider name. Supported provider: "slack"
     secretName: "gatling-notification-slack-secrets"      # The name of secret in which all key/value sets needed for the notification are stored

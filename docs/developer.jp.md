@@ -1,5 +1,5 @@
-# zozo-mlops-loadtest-cliの開発方法
-- [zozo-mlops-loadtest-cliの開発方法](#zozo-mlops-loadtest-cliの開発方法)
+# Gatling Commanderの開発方法
+- [Gatling Commanderの開発方法](#gatling-commanderの開発方法)
   - [ローカルでの実行](#ローカルでの実行)
   - [テストの実行](#テストの実行)
   - [lint・コードフォーマットの実行](#lintコードフォーマットの実行)

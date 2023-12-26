@@ -22,7 +22,7 @@ This describes the minimal information abount how to create the execution enviro
 
 ## Create execution environment
 ### Install CLI module
-You can install zozo-mlops-loadtest-cli with the following command.
+You can install Gatling Commander with the following command.
 ```bash
 go install github.com/st-tech/gatling-commander@latest
 ```
@@ -37,13 +37,13 @@ go install github.com/st-tech/gatling-commander@latest
   - Google Cloud Project is required for accessing Google Sheets by [Google Sheets API](https://developers.google.com/sheets/api/guides/concepts)
 
 ### Create Gatling Operator execution environment
-zozo-mlops-loadtest-cli is intended for use in load test with the [Gatling Operator](https://github.com/st-tech/gatling-operator).  
-When using zozo-mlops-loadtest-cli, please create an environment in which the Gatling Operator can be used first. Information about how to setup Gatling Operator environment, please refer to the Gatling Operator [Quick Start Guide](https://github.com/st-tech/gatling-operator/blob/main/docs/quickstart-guide.md).
+Gatling Commander is intended for use in load test with the [Gatling Operator](https://github.com/st-tech/gatling-operator).  
+When using Gatling Commander, please create an environment in which the Gatling Operator can be used first. Information about how to setup Gatling Operator environment, please refer to the Gatling Operator [Quick Start Guide](https://github.com/st-tech/gatling-operator/blob/main/docs/quickstart-guide.md).
 
-Please create `gatling` directory in directory which run zozo-mlops-loadtest-cli command, and create required file for Gatling Operator execution. For more information about this directory, please refer to [What is this `gatling` directory?](../gatling/README.md).
+Please create `gatling` directory in directory which run Gatling Commander command, and create required file for Gatling Operator execution. For more information about this directory, please refer to [What is this `gatling` directory?](../gatling/README.md).
 
 ### Create Google Sheets
-zozo-mlops-loadtest-cli record the load test results to Google Sheets. Both existing and newly created sheet can be used for the recording destination.
+Gatling Commander record the load test results to Google Sheets. Both existing and newly created sheet can be used for the recording destination.
 
 Please get Google Sheets ID and grant editor role by doing the following tasks.
 
@@ -52,7 +52,7 @@ Please get Google Sheets ID and grant editor role by doing the following tasks.
     - https://docs.google.com/spreadsheets/d/{ID}/edit#gid=0
   - Set copied string to `services[].spreadsheetID` in `config.yaml`
 - Grant role for editing the sheet
-  - Please grant Google Sheets editor role for using zozo-mlops-loadtest-cli to the account to be authenticated.
+  - Please grant Google Sheets editor role for using Gatling Commander to the account to be authenticated.
     - Click the Share button in the UI of the sheet you are recording and grant editor role to the target account.
 
 ### Create configuration file for load test
@@ -116,12 +116,12 @@ services:
 ```
 
 ### Create Kubernetes Manifest of Gatling Resource
-zozo-mlops-loadtest-cli creates an object for a Gatling Resource, a Kubernetes Custom Resource used by the Gatling Operator, to run load test.
+Gatling Commander creates an object for a Gatling Resource, a Kubernetes Custom Resource used by the Gatling Operator, to run load test.
 
 The `base_manifest.yaml` is Kubernetes manifest for Gatling Resource.  
 The `base_manifest.yaml` has the common values for each load test for the Gatling Resource.
 
-Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each loadtest. The value of this field will be replaced by the corresponding value in `config.yaml` respectively when zozo-mlops-loadtest-cli is run.  
+Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each loadtest. The value of this field will be replaced by the corresponding value in `config.yaml` respectively when Gatling Commander is run.  
 Therefore, setting values to fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` is not necessary.
 
 For information on how to write Kubernetes manifest for Gatling Resource (`config/base_manifest.yaml`), see the [samples YAML file](https://github.com/st-tech/gatling-operator/blob/main/config/samples/gatling-operator_v1alpha1_gatling01.yaml) which is provided in st-tech/gatling-operator repository, and create manifest for your environment.
@@ -189,9 +189,9 @@ gcloud auth application-default login --scopes=https://www.googleapis.com/auth/c
 ```
 
 ## Run load test
-The following zozo-mlops-loadtest-cli command will run load test which written in configuration.
+The following Gatling Commander command will run load test which written in configuration.
 ```bash
-zozo-mlops-loadtest-cli exec --config "config/config.yaml"
+gatling-commander exec --config "config/config.yaml"
 ```
 The `--skip-build` option allows you to skip building a Gatling Image. To use this option, you must set `imageURL` in `config.yaml` to the URL of the Gatling Image you have built.  
 If the `--skip-build` option is not specified, a new Gatling Image will always be built.
@@ -204,12 +204,12 @@ The load tests listed in `scenarioSpecs` in service are executed in the order in
 
 ## Record load test results
 The load test results are recorded in Google Sheets specified in `config.yaml`.  
-The sheets for recording are created by zozo-mlops-loadtest-cli and are in the format of `services[].name` + `date at runtime` in `config.yaml`. (e.g. `sample-service-20231113`)
+The sheets for recording are created by Gatling Commander and are in the format of `services[].name` + `date at runtime` in `config.yaml`. (e.g. `sample-service-20231113`)
 
 If there is load test run with same service name and same date, the results will be recorded to the same sheet. In that case, the results will be appended to the bottom row.
 
 ## Interruput running load test
-You can interruput the load test run by terminating the running zozo-mlops-loadtest-cli process with `ctrl + c`.  
+You can interruput the load test run by terminating the running Gatling Commander process with `ctrl + c`.  
 Upon interruption, the running Gatling object will be deleted immediately.
 
 ## Notify load test finish
@@ -225,7 +225,7 @@ In Gatling load tests, if returned response if different from the one specified 
 If `failFast` in `config.yaml` is set to `true`, subsequent load tests on the same service will not be performed if the load test results include a failed response.
 
 ### Discontinuation when target latency is exceeded
-zozo-mlops-loadtest-cli allows you to set a target latency threshold for each service and discontinue subsequent load tests if exceeds the threshold.  
+Gatling Commander allows you to set a target latency threshold for each service and discontinue subsequent load tests if exceeds the threshold.  
 To perform a latency threshold check, set both `targetLatency` and `targetPercentile` in `config.yaml`.
 
 - targetPercentile

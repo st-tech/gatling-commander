@@ -1,7 +1,7 @@
-# How to develop zozo-mlops-loadtest-cli
+# How to develop Gatling Commander
 日本語版Developer Guideは[こちら](./developer.jp.md)
 
-- [How to develop zozo-mlops-loadtest-cli](#how-to-develop-zozo-mlops-loadtest-cli)
+- [How to develop Gatling Commander](#how-to-develop-gatling-commander)
   - [Run command when developing](#run-command-when-developing)
   - [Run unit test](#run-unit-test)
   - [Run lint and code format](#run-lint-and-code-format)
@@ -14,14 +14,14 @@
   - [CI](#ci)
   - [Abount gatling directory](#abount-gatling-directory)
 
-This describes the information about how to develop zozo-mlops-loadtest-cli.
+This describes the information about how to develop Gatling Commander.
 
 ## Run command when developing
 In your local environment, you can run with this command in project root directory.
 ```bash
 go run main.go exec --config "config/config.yaml"
 ```
-By running this command, some preparation is needed. Information about how to preparate for run zozo-mlops-loadtest-cli, please refer to [Quick Start Guide](./quickstart-guide.md).
+By running this command, some preparation is needed. Information about how to preparate for run Gatling Commander, please refer to [Quick Start Guide](./quickstart-guide.md).
 
 ## Run unit test
 By running this command in project root directory, all unit tests will be run.  
@@ -82,7 +82,7 @@ ln -s $(pwd) ${GOROOT}/src
 go run golang.org/x/tools/cmd/godoc -http=:6060
 ```
 
-After the webserver is started, the documentation for the package used by zozo-mlops-loadtest-cli is displayed with access to `localhost:6060`.
+After the webserver is started, the documentation for the package used by Gatling Commander is displayed with access to `localhost:6060`.
 
 By default, only documents of exported functions and variables are displayed. To see documents of all functions and variables, access to `localhost:6060?m=all`.
 

@@ -16,10 +16,10 @@
     - [Roles to read, write Google Sheets](#roles-to-read-write-google-sheets)
       - [Authentication of Google Sheets API](#authentication-of-google-sheets-api)
 
-This describes the information about how to write configuration files and authentication when using zozo-mlops-loadtest-cli.  
+This describes the information about how to write configuration files and authentication when using Gatling Commander.  
 Please refer to the [Quick Start Guide](./quickstart-guide.md) for information on how to install this tool, set up the [Gatling Operator](https://github.com/st-tech/gatling-operator), and prepare and run the load test scenario.
 ## About configuration file
-zozo-mlops-loadtest-cli requires the following two types of YAML files as configuration files.  
+Gatling Commander requires the following two types of YAML files as configuration files.  
 - config.yaml
 - base_manifest.yaml
 
@@ -27,7 +27,7 @@ Configuration values for the load test are written in `config/config.yaml`.
 
 The `base_manifest.yaml` describes the common values for each load test in the Kubernetes manifest of the Gatling Resource.
 
-Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each load test. The value of this field will be replaced by the value in `config.yaml` respectively when zozo-mlops-loadtest-cli runs.
+Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each load test. The value of this field will be replaced by the value in `config.yaml` respectively when Gatling Commander runs.
 Therefore, setting values to fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` is not necessary.
 
 The location and file name of `config.yaml` and `base_manifest.yaml` can be any value.  
@@ -40,7 +40,7 @@ This describes about each field in `config.yaml`
 #### Hierarchy of `config.yaml`
 The `config.yaml` has a hierarchical structure.
 
-In zozo-mlops-loadtest-cli, a service is defined as a group of load test.  
+In Gatling Commander, a service is defined as a group of load test.  
 A service has one or more load test scenarios for the same target.  
 The results of the load test for the same service are recorded in [Google Sheets](https://www.google.com/sheets/about/) specified by `services[].spreadsheetID` in `config.yaml`.
 
@@ -98,7 +98,7 @@ This section describes the configuration values in `config.yaml` for each indivi
 The `base_manifest.yaml` describes the fields in the Kubernetes manifest of the Gatling Resource that set common values for each load test.  
 For more information about the fields in the Kubernetes manifest of the Gatling Resource, see [Gatling Operator API Reference](https://github.com/st-tech/gatling-operator/blob/main/docs/api.md#gatling).
 
-Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each loadtest. The value of this field will be replaced by the corresponding value in `config.yaml` respectively when zozo-mlops-loadtest-cli is run.  
+Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each loadtest. The value of this field will be replaced by the corresponding value in `config.yaml` respectively when Gatling Commander is run.  
 Therefore, setting values to fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` is not necessary.
 
 This section describes the fields in `base_manifest.yaml` that are replaced by values in `config.yaml`.
@@ -112,7 +112,7 @@ This section describes the fields in `base_manifest.yaml` that are replaced by v
 | `spec.testScenarioSpec.env[]` _[]dict_ | Overwritten by `services[].scenarioSpecs[].testScenarioSpec.env[]` field value in `config.yaml` |
 
 ## Required Role and Authentication
-The following roles are required to run zozo-mlops-loadtest-cli.
+The following roles are required to run Gatling Commander.
 
 - Roles to pull and push docker images
 - Roles to get, create, and delete objects in a Kubernetes cluster
@@ -121,31 +121,31 @@ The following roles are required to run zozo-mlops-loadtest-cli.
 
 ### Roles to pull and push docker images
 If you do not specify `imageURL` in `config.yaml`, it will build a new Gatling Image and push it to the specified Image Repository.  
-zozo-mlops-loadtest-cli currently supports use with Google Cloud only, [Google Artifact Registry](https://cloud.google.com/artifact-registry) and [Google Container Registry](https://cloud.google.com/container-registry/docs/overview) are available.
+Gatling Commander currently supports use with Google Cloud only, [Google Artifact Registry](https://cloud.google.com/artifact-registry) and [Google Container Registry](https://cloud.google.com/container-registry/docs/overview) are available.
 
-For building and pushing Gatling Image, please grant the account that is necessary roles to push the Image to an account that is used in the zozo-mlops-loadtest-cli execution environment.
+For building and pushing Gatling Image, please grant the account that is necessary roles to push the Image to an account that is used in the Gatling Commander execution environment.
 
 ### Roles to get, create, and delete objects in a Kubernetes cluster
-zozo-mlops-loadtest-cli creates, gets, and deletes Gatling Objects on the specified cluster and fetches metrics for the pods under load test.
+Gatling Commander creates, gets, and deletes Gatling Objects on the specified cluster and fetches metrics for the pods under load test.
 
-zozo-mlops-loadtest-cli obtains Kubernetes authentication by referring to `$HOME/.kube/config`.  
-The account used in the execution environment of zozo-mlops-loadtest-cli must be authorized to get, create and delete Kubernetes objects.
+Gatling Commander obtains Kubernetes authentication by referring to `$HOME/.kube/config`.  
+The account used in the execution environment of Gatling Commander must be authorized to get, create and delete Kubernetes objects.
 
 ### Roles to read from Cloud Storage
-Gatling Operator creates and uploads a Gatling Report to a `provider` `bucket` specified place which are set in the `cloudStorageSpec` of Gatling manifest.    
-zozo-mlops-loadtest-cli gets the Gatling Report uploaded to the configured `bucket`, reads the target items, and records them in Google Sheets.
+Gatling Operator creates and uploads a Gatling Report to a `provider` `bucket` specified place which are set in the `cloudStorageSpec` of Gatling manifest.  
+Gatling Commander gets the Gatling Report uploaded to the configured `bucket`, reads the target items, and records them in Google Sheets.
 
-zozo-mlops-loadtest-cli currently supports use with Google Cloud only and reads load test results from Gatling Reports uploaded to Google Cloud Storage.
+Gatling Commander currently supports use with Google Cloud only and reads load test results from Gatling Reports uploaded to Google Cloud Storage.
 
-Please grant the necessary roles to get the Gatling Reports file to the account that is used in the execution environment of zozo-mlops-loadtest-cli.
+Please grant the necessary roles to get the Gatling Reports file to the account that is used in the execution environment of Gatling Commander.
 
 ### Roles to read, write Google Sheets
-zozo-mlops-loadtest-cli records the load test results in the specified Google Sheets.  
-Please grant the editor privilege of the target Google Sheets to the account used in the execution environment of zozo-mlops-loadtest-cli.
+Gatling Commander records the load test results in the specified Google Sheets.  
+Please grant the editor privilege of the target Google Sheets to the account used in the execution environment of Gatling Commander.
 
 #### Authentication of Google Sheets API
-zozo-mlops-loadtest-cli use [Google Sheets API](https://developers.google.com/sheets/api/guides/concepts) for manipulating Google Sheets. If you do not have a Google Cloud Project, create one and activate the Google Sheets API.  
-After creating a Google Sheets sheet, grant the role to edit the sheet to the account used in the execution environment of zozo-mlops-loadtest-cli.
+Gatling Commander use [Google Sheets API](https://developers.google.com/sheets/api/guides/concepts) for manipulating Google Sheets. If you do not have a Google Cloud Project, create one and activate the Google Sheets API.  
+After creating a Google Sheets sheet, grant the role to edit the sheet to the account used in the execution environment of Gatling Commander.
 
 Please execute the following command to authenticate Google Sheets.
 ```bash

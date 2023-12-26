@@ -1,5 +1,5 @@
-# zozo-mlops-loadtest-cli クイックスタートガイド
-- [zozo-mlops-loadtest-cli クイックスタートガイド](#zozo-mlops-loadtest-cli-クイックスタートガイド)
+# Gatling Commander クイックスタートガイド
+- [Gatling Commander クイックスタートガイド](#gatling-commander-クイックスタートガイド)
   - [事前準備](#事前準備)
     - [モジュールのインストール](#モジュールのインストール)
     - [ツールのインストール](#ツールのインストール)
@@ -16,7 +16,7 @@
     - [Failした際の中止](#failした際の中止)
     - [目標レイテンシを上回った際の中止](#目標レイテンシを上回った際の中止)
 
-zozo-mlops-loadtest-cliをすぐに利用するため、実行環境の作成と実行方法について最小限の情報を記載しています。  
+Gatling Commanderをすぐに利用するため、実行環境の作成と実行方法について最小限の情報を記載しています。  
 設定ファイル、権限・認証に関する詳しい説明は[User Guide](./user-guide.jp.md)を参照してください。
 
 ## 事前準備
@@ -35,7 +35,7 @@ go install github.com/st-tech/gatling-commander@latest
   - Google Sheetsの認証に必要です
 
 ### Gatling Operatorの環境構築
-zozo-mlops-loadtest-cliは[Gatling Operator](https://github.com/st-tech/gatling-operator)の利用を前提としています。  
+Gatling Commanderは[Gatling Operator](https://github.com/st-tech/gatling-operator)の利用を前提としています。  
 [Gatling OperatorのQuick Start Guide](https://github.com/st-tech/gatling-operator/blob/main/docs/quickstart-guide.md)を参考にGatling Operatorを利用可能な環境構築を行なってください。
 
 コマンド実行を行うディレクトリ内に`gatling`ディレクトリを作成し、Gatling Operator実行時に必要なファイルのコピーや作成を行なってください。  
@@ -52,7 +52,7 @@ zozo-mlops-loadtest-cliは[Gatling Operator](https://github.com/st-tech/gatling-
     - https://docs.google.com/spreadsheets/d/{ID}/edit#gid=0
   - コピーした文字列は`config.yaml`の`services[].spreadsheetID`に設定してください
 - シートの権限付与
-  - zozo-mlops-loadtest-cliを利用する際に、認証するアカウントへGoogle Sheetsの編集者権限を付与してください
+  - Gatling Commanderを利用する際に、認証するアカウントへGoogle Sheetsの編集者権限を付与してください
     - 記録先のシートのUIから共有ボタンをクリックし、対象のアカウントへ編集者権限を付与できます
 
 ### 負荷試験設定ファイルの作成
@@ -116,12 +116,12 @@ services:
 ```
 
 ### Gatlingリソースのマニフェスト作成
-zozo-mlops-loadtest-cliではGatling Operatorで利用するKubernetesのCustom ResourceであるGatlingリソースのオブジェクトを作成して負荷試験を行います。
+Gatling CommanderではGatling Operatorで利用するKubernetesのCustom ResourceであるGatlingリソースのオブジェクトを作成して負荷試験を行います。
 
 `base_manifest.yaml`はGatlingリソースのKubernetesマニフェストです。  
 `base_manifest.yaml`にはGatlingリソースについて、負荷試験ごとに共通の値を記述します。
 
-`base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに異なる値が設定されます。こちらのフィールドの値は、zozo-mlops-loadtest-cliの実行時に`config.yaml`の値でそれぞれ置き換えられます。  
+`base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに異なる値が設定されます。こちらのフィールドの値は、Gatling Commanderの実行時に`config.yaml`の値でそれぞれ置き換えられます。  
 そのため`base_manifest.yaml`での値の設定は不要です。
 
 `config/base_manifest.yaml`の記述については、[Gatling Operatorのサンプル](https://github.com/st-tech/gatling-operator/blob/main/config/samples/gatling-operator_v1alpha1_gatling01.yaml)を参考に、利用する環境に合わせて作成してください。  
@@ -191,7 +191,7 @@ gcloud auth application-default login --scopes=https://www.googleapis.com/auth/c
 ## 負荷試験の実行
 次のコマンドにより負荷試験が実行されます。
 ```bash
-zozo-mlops-loadtest-cli exec --config "config/config.yaml"
+gatling-commander exec --config "config/config.yaml"
 ```
 `--skip-build`オプションを指定するとGatling Imageのbuildをスキップできます。  
 このオプションを使用するには、`config.yaml`で`imageURL`に予めbuildしたGatling ImageのURLを設定する必要があります。  
@@ -205,13 +205,13 @@ service内の`scenarioSpecs`に記載した負荷試験は記載順に順次実�
 
 ## 負荷試験結果の出力
 負荷試験結果は`config.yaml`で指定したGoogle Sheetsに記録されます。  
-記録用のシートはzozo-mlops-loadtest-cliにより作成され、`config.yaml`の`services[].name` + `実行日`の形式で作成されます。（例：`sample-service-20231113`）
+記録用のシートはGatling Commanderにより作成され、`config.yaml`の`services[].name` + `実行日`の形式で作成されます。（例：`sample-service-20231113`）
 
 同一のservice名を持ち、同じ日付に実施された負荷試験の記録用シートは同名であるため、既存のシートに追記する形で記録されます。  
 追記される結果は一番下の行に追加されます。
 
 ## 負荷試験実行の中止
-`ctrl + c`で実行中のzozo-mlops-loadtest-cliのプロセスを終了することで、負荷試験実行を中断することができます。  
+`ctrl + c`で実行中のGatling Commanderのプロセスを終了することで、負荷試験実行を中断することができます。  
 中断すると実行中のGatling Objectは直ちに削除されます。
 
 ## 負荷試験終了の通知
@@ -227,7 +227,7 @@ Gatlingの負荷試験では、負荷試験シナリオで指定した以外の�
 `config.yaml`の`failFast`を`true`に設定すると負荷試験結果にfailedが含まれた場合に、同一serviceでの以降の負荷試験を実施しません。
 
 ### 目標レイテンシを上回った際の中止
-zozo-mlops-loadtest-cliではserviceごとに目標レイテンシの閾値を設定し、閾値を超えた場合に以降の負荷試験を中止できます。  
+Gatling Commanderではserviceごとに目標レイテンシの閾値を設定し、閾値を超えた場合に以降の負荷試験を中止できます。  
 レイテンシの閾値チェックを行うには、`config.yaml`の`targetLatency`・`targetPercentile`の両方を設定します。
 
 - targetPercentile

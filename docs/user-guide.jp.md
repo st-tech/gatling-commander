@@ -1,5 +1,5 @@
-# zozo-mlops-loadtest-cli ユーザーガイド
-- [zozo-mlops-loadtest-cli ユーザーガイド](#zozo-mlops-loadtest-cli-ユーザーガイド)
+# Gatling Commander ユーザーガイド
+- [Gatling Commander ユーザーガイド](#gatling-commander-ユーザーガイド)
   - [設定ファイルの概要](#設定ファイルの概要)
     - [負荷試験設定](#負荷試験設定)
       - [`config.yaml`の階層](#configyamlの階層)
@@ -14,10 +14,10 @@
     - [Google Sheetsへの読み取り・書き込み権限](#google-sheetsへの読み取り書き込み権限)
       - [Google Sheets APIの認証](#google-sheets-apiの認証)
 
-zozo-mlops-loadtest-cliを利用する際の設定ファイルの書き方や認証について説明しています。  
+Gatling Commanderを利用する際の設定ファイルの書き方や認証について説明しています。  
 ツールのインストールや[Gatling Operator](https://github.com/st-tech/gatling-operator)のセットアップ、負荷試験シナリオの作成などの事前準備・実行方法については[Quick Start Guide](./quickstart-guide.jp.md)を参照してください。
 ## 設定ファイルの概要
-zozo-mlops-loadtest-cliでは、設定ファイルとして次の2種類のYAMLファイルを用意する必要があります。  
+Gatling Commanderでは、設定ファイルとして次の2種類のYAMLファイルを用意する必要があります。  
 - config.yaml
 - base_manifest.yaml
 
@@ -25,7 +25,7 @@ zozo-mlops-loadtest-cliでは、設定ファイルとして次の2種類のYAML�
 
 `base_manifest.yaml`にはGatlingリソースのKubernetesマニフェストのうち、負荷試験ごとに共通の値を記述します。
 
-`base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに異なる値が設定されます。こちらのフィールドの値は、zozo-mlops-loadtest-cliの実行時に`config.yaml`の値でそれぞれ置き換えられます。  
+`base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに異なる値が設定されます。こちらのフィールドの値は、Gatling Commanderの実行時に`config.yaml`の値でそれぞれ置き換えられます。  
 そのため`base_manifest.yaml`での値の設定は不要です。
 
 `config.yaml`・`base_manifest.yaml`の保存場所、ファイル名は任意の値を指定可能です。  
@@ -38,7 +38,7 @@ zozo-mlops-loadtest-cliでは、設定ファイルとして次の2種類のYAML�
 #### `config.yaml`の階層
 `config.yaml`は階層構造となっています。
 
-zozo-mlops-loadtest-cliでは、個々の負荷試験のグループとしてserviceを定義します。  
+Gatling Commanderでは、個々の負荷試験のグループとしてserviceを定義します。  
 serviceは同一の負荷試験対象に関する1つ以上の負荷試験シナリオを持ちます。  
 同一serviceの負荷試験の結果は、`config.yaml`の`services[].spreadsheetID`で指定した[Google Sheets](https://www.google.com/sheets/about/)に記録されます。
 
@@ -97,7 +97,7 @@ serviceは同一の負荷試験対象に関する1つ以上の負荷試験シナ
 GatlingリソースのKubernetesマニフェストのフィールドについては、[Gatling OperatorのAPI Reference](https://github.com/st-tech/gatling-operator/blob/main/docs/api.md#gatling)を参照してください。
 
 `base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに異なる値が設定されます。  
-これらのフィールドの値は、zozo-mlops-loadtest-cliの実行時に`config.yaml`の値でそれぞれ置き換えられます。  
+これらのフィールドの値は、Gatling Commanderの実行時に`config.yaml`の値でそれぞれ置き換えられます。  
 そのため、`base_manifest.yaml`での値の変更は不要です。
 
 `base_manifest.yaml`のうち、`config.yaml`の値で置き換えられるフィールドについて説明します。
@@ -111,7 +111,7 @@ GatlingリソースのKubernetesマニフェストのフィールドについて
 | `spec.testScenarioSpec.env[]` _[]dict_ | Overwritten by `services[].scenarioSpecs[].testScenarioSpec.env[]` field value in `config.yaml` |
 
 ## 権限と認証
-zozo-mlops-loadtest-cliの実行には次の権限が必要です。
+Gatling Commanderの実行には次の権限が必要です。
 
 - docker imageをpull・pushできる権限
 - Kubernetesクラスタでオブジェクトの取得・作成・削除ができる権限
@@ -120,30 +120,30 @@ zozo-mlops-loadtest-cliの実行には次の権限が必要です。
 
 ### docker imageをpull・pushできる権限
 `config.yaml`の`imageURL`を指定しない場合、新しくGatling Imageをbuildし指定したImage Repositoryにpushします。  
-zozo-mlops-loadtest-cliでは現状Google Cloudのみでの利用をサポートしており、[Google Artifact Registry](https://cloud.google.com/artifact-registry)・[Google Container Registry](https://cloud.google.com/container-registry/docs/overview)が利用可能です。
+Gatling Commanderでは現状Google Cloudのみでの利用をサポートしており、[Google Artifact Registry](https://cloud.google.com/artifact-registry)・[Google Container Registry](https://cloud.google.com/container-registry/docs/overview)が利用可能です。
 
-Gatling Imageのbuild・pushを行う場合は、zozo-mlops-loadtest-cliの実行環境で認証されるアカウントにImageをpushするために必要な権限を付与してください。
+Gatling Imageのbuild・pushを行う場合は、Gatling Commanderの実行環境で認証されるアカウントにImageをpushするために必要な権限を付与してください。
 
 ### Kubernetesクラスタでオブジェクトを読み取り・書き込み・削除できる権限
-zozo-mlops-loadtest-cliでは指定したクラスタでGatling Objectの作成・取得・削除や負荷試験対象のPodのメトリクスの取得を行います。
+Gatling Commanderでは指定したクラスタでGatling Objectの作成・取得・削除や負荷試験対象のPodのメトリクスの取得を行います。
 
 Kubernetesの認証情報は`$HOME/.kube/config`を参照して取得しています。  
-zozo-mlops-loadtest-cliの実行環境で認証されるアカウントにKubernetesオブジェクトの取得・作成・削除ができる権限を付与してください。
+Gatling Commanderの実行環境で認証されるアカウントにKubernetesオブジェクトの取得・作成・削除ができる権限を付与してください。
 
 ### Cloud Storageからの読み取り権限
 Gatling Operatorの仕様として、負荷試験実行後にGatling Reportが`cloudStorageSpec`で設定した`provider`の`bucket`に出力されます。  
-zozo-mlops-loadtest-cliでは設定した`bucket`にアップロードされたGatling Reportを取得し、対象の項目を読み取ってGoogle Sheetsに記録します。
+Gatling Commanderでは設定した`bucket`にアップロードされたGatling Reportを取得し、対象の項目を読み取ってGoogle Sheetsに記録します。
 
-zozo-mlops-loadtest-cliでは現状Google Cloudのみでの利用をサポートしており、Google Cloud StorageにアップロードされたGatling Reportから負荷試験結果の読み取りを行います。
+Gatling Commanderでは現状Google Cloudのみでの利用をサポートしており、Google Cloud StorageにアップロードされたGatling Reportから負荷試験結果の読み取りを行います。
 
-zozo-mlops-loadtest-cliの実行環境で認証されるアカウントにファイルを取得するために必要な権限付与してください。
+Gatling Commanderの実行環境で認証されるアカウントにファイルを取得するために必要な権限付与してください。
 
 ### Google Sheetsへの読み取り・書き込み権限
-zozo-mlops-loadtest-cliでは負荷試験結果を指定されたGoogle Sheetsに記録します。  
-zozo-mlops-loadtest-cliの実行環境で認証されるアカウントに、対象のGoogle Sheetsの編集者権限を付与してください。
+Gatling Commanderでは負荷試験結果を指定されたGoogle Sheetsに記録します。  
+Gatling Commanderの実行環境で認証されるアカウントに、対象のGoogle Sheetsの編集者権限を付与してください。
 
 #### Google Sheets APIの認証
-zozo-mlops-loadtest-cliでGoogle Sheetsを操作する際には[Google Sheets API](https://developers.google.com/sheets/api/guides/concepts)を利用します。Google Cloud Projectがない場合はProjectを作成し、Google Sheets APIを有効化してください。  
+Gatling CommanderでGoogle Sheetsを操作する際には[Google Sheets API](https://developers.google.com/sheets/api/guides/concepts)を利用します。Google Cloud Projectがない場合はProjectを作成し、Google Sheets APIを有効化してください。  
 Google Sheetsのシートを作成後、認証するアカウントへシートの編集権限を付与してください。
 
 次のコマンドを実行し、Google Sheetsの認証を行なってください。

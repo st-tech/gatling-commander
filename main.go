@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	loadTestCmd := cmd.NewDefaultMLOpsLoadTestCommand()
+	loadTestCmd := cmd.NewDefaultGatlingCommanderCommand()
 	if err := loadTestCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: command run failed %v\n", err)
 		os.Exit(1)

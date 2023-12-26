@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// Package cmd implements root command of zozo-mlops-load-test-cli.
+// Package cmd implements root command of gatling-commander.
 package cmd
 
 import (
@@ -35,7 +35,7 @@ import (
 	cfg "github.com/st-tech/gatling-commander/pkg/config"
 )
 
-type mlopsLoadTestOptions struct {
+type gatlingCommanderOptions struct {
 	Arguments []string
 }
 
@@ -44,16 +44,16 @@ var config cfg.Config
 
 const rootCmdName = "gatling-commander"
 
-// NewDefaultMLOpsLoadTestCommand creates the 'gatling-commander' command with default arguments.
-func NewDefaultMLOpsLoadTestCommand() *cobra.Command {
-	return NewDefaultMLOpsLoadTestCommandWithArgs(mlopsLoadTestOptions{
+// NewDefaultGatlingCommanderCommand creates the 'gatling-commander' command with default arguments.
+func NewDefaultGatlingCommanderCommand() *cobra.Command {
+	return NewDefaultGatlingCommanderCommandWithArgs(gatlingCommanderOptions{
 		Arguments: os.Args,
 	})
 }
 
-// NewDefaultMLOpsLoadTestCommand creates the 'gatling-commander' command with arguments.
-func NewDefaultMLOpsLoadTestCommandWithArgs(o mlopsLoadTestOptions) *cobra.Command {
-	cmd := NewMLOpsLoadTestCommand(o)
+// NewDefaultGatlingCommanderCommandWithArgs creates the 'gatling-commander' command with arguments.
+func NewDefaultGatlingCommanderCommandWithArgs(o gatlingCommanderOptions) *cobra.Command {
+	cmd := NewGatlingCommanderCommand(o)
 
 	if len(o.Arguments) > 1 {
 		cmdPathPieces := o.Arguments[1:]
@@ -79,8 +79,8 @@ func NewDefaultMLOpsLoadTestCommandWithArgs(o mlopsLoadTestOptions) *cobra.Comma
 	return cmd
 }
 
-// NewMLOpsLoadTestCommand creates the 'gatling-commander' command and its nested children.
-func NewMLOpsLoadTestCommand(o mlopsLoadTestOptions) *cobra.Command {
+// NewGatlingCommanderCommand creates the 'gatling-commander' command and its nested children.
+func NewGatlingCommanderCommand(o gatlingCommanderOptions) *cobra.Command {
 	// Parent Command to which all subcommands are added.
 	cmds := &cobra.Command{
 		Use:   rootCmdName,
