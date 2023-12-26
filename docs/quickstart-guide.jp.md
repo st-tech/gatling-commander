@@ -22,7 +22,7 @@ zozo-mlops-loadtest-cliをすぐに利用するため、実行環境の作成と
 ## 事前準備
 ### モジュールのインストール
 ```bash
-go install github.com/st-tech/zozo-mlops-loadtest-cli@latest
+go install github.com/st-tech/gatling-commander@latest
 ```
 ### ツールのインストール
 - [Gatling Operator](https://github.com/st-tech/gatling-operator/tree/main)

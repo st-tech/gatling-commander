@@ -24,7 +24,7 @@ This describes the minimal information abount how to create the execution enviro
 ### Install CLI module
 You can install zozo-mlops-loadtest-cli with the following command.
 ```bash
-go install github.com/st-tech/zozo-mlops-loadtest-cli@latest
+go install github.com/st-tech/gatling-commander@latest
 ```
 ### Install required tools
 - [Gatling Operator](https://github.com/st-tech/gatling-operator/tree/main)

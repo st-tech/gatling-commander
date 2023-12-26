@@ -33,12 +33,12 @@ import (
 	"sync"
 	"time"
 
-	cfg "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/config"
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/external/cloudstorages"
-	slackTools "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/external/slack"
-	sheetTools "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/external/spreadsheet"
-	gatlingTools "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/internal/gatling"
-	kubeapiTools "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/internal/kubeapi"
+	cfg "github.com/st-tech/gatling-commander/pkg/config"
+	"github.com/st-tech/gatling-commander/pkg/external/cloudstorages"
+	slackTools "github.com/st-tech/gatling-commander/pkg/external/slack"
+	sheetTools "github.com/st-tech/gatling-commander/pkg/external/spreadsheet"
+	gatlingTools "github.com/st-tech/gatling-commander/pkg/internal/gatling"
+	kubeapiTools "github.com/st-tech/gatling-commander/pkg/internal/kubeapi"
 
 	"github.com/spf13/cobra"
 	gatlingv1alpha1 "github.com/st-tech/gatling-operator/api/v1alpha1"
@@ -113,7 +113,7 @@ func NewCmdExec(baseName string, config *cfg.Config) *cobra.Command {
 		Long: `The exec command load configuration file which has specified path with config arguments.
 		And execute load test by creating Gatling Resource in the cluster.
 		This command load Gatling Report and get load test target container metrics, and record it in specified Google Sheets.
-		Complete documentation is available at https://github.com/st-tech/zozo-mlops-loadtest-cli/docs`,
+		Complete documentation is available at https://github.com/st-tech/gatling-commander/docs`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			err := runExec(cmd, config, flags)
 			if config.SlackConfig.WebhookURL != "" {

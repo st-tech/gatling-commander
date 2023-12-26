@@ -28,10 +28,10 @@ import (
 	"os"
 	"testing"
 
-	cfg "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/config"
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/internal/gatling"
-	gatlingTools "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/internal/gatling"
-	kubeutil "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/internal/kubeutil"
+	cfg "github.com/st-tech/gatling-commander/pkg/config"
+	"github.com/st-tech/gatling-commander/pkg/internal/gatling"
+	gatlingTools "github.com/st-tech/gatling-commander/pkg/internal/gatling"
+	kubeutil "github.com/st-tech/gatling-commander/pkg/internal/kubeutil"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/jinzhu/copier"

@@ -29,8 +29,8 @@ import (
 	"testing"
 	"time"
 
-	cfg "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/config"
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/internal/kubeutil"
+	cfg "github.com/st-tech/gatling-commander/pkg/config"
+	"github.com/st-tech/gatling-commander/pkg/internal/kubeutil"
 
 	"github.com/stretchr/testify/assert"
 	corev1 "k8s.io/api/core/v1"

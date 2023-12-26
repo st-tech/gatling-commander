@@ -31,8 +31,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/cmd/exec"
-	cfg "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/config"
+	"github.com/st-tech/gatling-commander/pkg/cmd/exec"
+	cfg "github.com/st-tech/gatling-commander/pkg/config"
 )
 
 type mlopsLoadTestOptions struct {
@@ -42,16 +42,16 @@ type mlopsLoadTestOptions struct {
 var configFile string
 var config cfg.Config
 
-const rootCmdName = "zozo-mlops-loadtest-cli"
+const rootCmdName = "gatling-commander"
 
-// NewDefaultMLOpsLoadTestCommand creates the 'zozo-mlops-loadtest-cli' command with default arguments.
+// NewDefaultMLOpsLoadTestCommand creates the 'gatling-commander' command with default arguments.
 func NewDefaultMLOpsLoadTestCommand() *cobra.Command {
 	return NewDefaultMLOpsLoadTestCommandWithArgs(mlopsLoadTestOptions{
 		Arguments: os.Args,
 	})
 }
 
-// NewDefaultMLOpsLoadTestCommand creates the 'zozo-mlops-loadtest-cli' command with arguments.
+// NewDefaultMLOpsLoadTestCommand creates the 'gatling-commander' command with arguments.
 func NewDefaultMLOpsLoadTestCommandWithArgs(o mlopsLoadTestOptions) *cobra.Command {
 	cmd := NewMLOpsLoadTestCommand(o)
 
@@ -79,15 +79,15 @@ func NewDefaultMLOpsLoadTestCommandWithArgs(o mlopsLoadTestOptions) *cobra.Comma
 	return cmd
 }
 
-// NewMLOpsLoadTestCommand creates the 'zozo-mlops-loadtest-cli' command and its nested children.
+// NewMLOpsLoadTestCommand creates the 'gatling-commander' command and its nested children.
 func NewMLOpsLoadTestCommand(o mlopsLoadTestOptions) *cobra.Command {
 	// Parent Command to which all subcommands are added.
 	cmds := &cobra.Command{
 		Use:   rootCmdName,
-		Short: "zozo-mlops-loadtest-cli automates the execution of load test using Gatling Operator",
-		Long: `zozo-mlops-loadtest-cli is a CLI tool that automates a series of tasks
+		Short: "gatling-commander automates the execution of load test using Gatling Operator",
+		Long: `gatling-commander is a CLI tool that automates a series of tasks
 				in the execution of load test using Gatling Operator.
-				Complete documentation is available at https://github.com/st-tech/zozo-mlops-loadtest-cli/docs`,
+				Complete documentation is available at https://github.com/st-tech/gatling-commander/docs`,
 	}
 
 	cmds.PersistentFlags().StringVarP(&configFile, "config", "c", "", "config file name")

@@ -28,7 +28,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/internal/kubeutil"
+	"github.com/st-tech/gatling-commander/pkg/internal/kubeutil"
 
 	gatlingv1alpha1 "github.com/st-tech/gatling-operator/api/v1alpha1"
 	"sigs.k8s.io/controller-runtime/pkg/client"

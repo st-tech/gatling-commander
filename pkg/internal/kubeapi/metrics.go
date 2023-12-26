@@ -37,7 +37,7 @@ import (
 	metricsClientset "k8s.io/metrics/pkg/client/clientset/versioned"
 	ctrlClient "sigs.k8s.io/controller-runtime/pkg/client"
 
-	cfg "github.com/st-tech/zozo-mlops-loadtest-cli/pkg/config"
+	cfg "github.com/st-tech/gatling-commander/pkg/config"
 )
 
 type metricsPool struct {

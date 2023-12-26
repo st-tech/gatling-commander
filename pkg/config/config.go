@@ -28,8 +28,8 @@ package config
 import (
 	"fmt"
 
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/internal/gatling"
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/util"
+	"github.com/st-tech/gatling-commander/pkg/internal/gatling"
+	"github.com/st-tech/gatling-commander/pkg/util"
 )
 
 // Config map config/config.yaml field value.

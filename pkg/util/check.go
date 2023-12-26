@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// Package util implements utility in zozo-mlops-loadtest-cli.
+// Package util implements utility in gatling-commander.
 package util
 
 import (

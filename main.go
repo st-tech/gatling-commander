@@ -25,7 +25,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/cmd"
+	"github.com/st-tech/gatling-commander/pkg/cmd"
 )
 
 func main() {

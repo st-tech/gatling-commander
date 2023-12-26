@@ -30,7 +30,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/st-tech/zozo-mlops-loadtest-cli/pkg/util"
+	"github.com/st-tech/gatling-commander/pkg/util"
 
 	gatlingv1alpha1 "github.com/st-tech/gatling-operator/api/v1alpha1"
 	"gopkg.in/yaml.v3"
