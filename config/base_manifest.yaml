@@ -1,0 +1,47 @@
+apiVersion: gatling-operator.tech.zozo.com/v1alpha1
+kind: Gatling
+metadata:
+  name: <config.yaml overrides this field> # will be overrided by services[].name field value in config.yaml. ex: sample-service
+  namespace: gatling
+spec:
+  generateReport: true
+  generateLocalReport: true
+  notifyReport: false
+  cleanupAfterJobDone: false
+  podSpec:
+    gatlingImage: <config.yaml overrides this field> # will be overrided by built Gatling Image URL or imageURL field value in config.yaml. ex: asia-docker.pkg.dev/project_id/foo/bar/gatlinge-image-name-prefix-YYYYMMDD
+    rcloneImage: rclone/rclone
+    resources:
+      requests:
+        cpu: "7000m"
+        memory: "4G"
+      limits:
+        cpu: "7000m"
+        memory: "4G"
+    serviceAccountName: "gatling-operator-worker-service-account"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: cloud.google.com/gke-nodepool
+                  operator: In
+                  values:
+                    - "gatling-operator-worker-pool"
+    tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "gatling-operator-worker-pool"
+        effect: "NoSchedule"
+  cloudStorageSpec:
+    provider: "gcp"
+    bucket: "report-storage-bucket-name"
+  notificationServiceSpec:
+    provider: "slack"
+    secretName: "gatling-notification-slack-secrets"
+  testScenarioSpec:
+    parallelism: <config.yaml overrides this field> # will be overrided by services[].scenarioSpecs[].testScenarioSpec.parallelism field value. ex: 1
+    simulationClass: <config.yaml overrides this field> # will be overrided by services[].scenarioSpecs[].testScenarioSpec.simulationClass field value. ex: SampleSimulation
+    env: # will be overrided by services[].scenarioSpecs[].testScenarioSpec.env[] field value. ex: `env: [{name: ENV, value: "dev"}, {name: CONCURRENCY, value: "20"}]`
+      - name: <config.yaml overrides this field>
+        value: <config.yaml overrides this field>

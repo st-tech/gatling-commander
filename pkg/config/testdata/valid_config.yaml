@@ -1,0 +1,44 @@
+gatlingContextName: gke_sample_asia-northeast1_sample
+imageRepository: example/gatling-scenario
+imagePrefix: sample
+gatlingDockerfileDir: gatling_operator_scripts/gatling_buildkit
+baseManifest: config/base_manifest.yaml
+startupTimeoutSec: 1800 # 30min
+execTimeoutSec: 10800 # 3h
+services:
+  - name: sample-service
+    spreadsheetID: sample-id
+    failFast: false
+    targetPodConfig:
+      contextName: gke_sample_asia-east1_gke_sample_asia
+      namespace: default
+      labelKey: run
+      labelValue: sample-api
+      containerName: sample-api
+    targetPercentile:
+    targetLatency:
+    scenarioSpecs:
+      - name: sample-test-scenario
+        subName: -5rps
+        testScenarioSpec:
+          simulationClass: SampleSimulation
+          parallelism: 1
+          env:
+            - name: ENV
+              value: "stg"
+            - name: CONCURRENCY
+              value: "5"
+            - name: DURATION
+              value: "10"
+      - name: sample-test-scenario
+        subName: 10rps
+        testScenarioSpec:
+          simulationClass: SampleSimulation
+          parallelism: 1
+          env:
+            - name: ENV
+              value: "stg"
+            - name: CONCURRENCY
+              value: "10"
+            - name: DURATION
+              value: "10"

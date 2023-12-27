@@ -1,0 +1,48 @@
+gatlingContextName: gatling-cluster-context-name
+imageRepository: gatling-image-stored-repository-url
+imagePrefix: gatlinge-image-name-prefix
+imageURL: "" # (Optional) specify image url when using pre build gatling container image
+baseManifest: config/base_manifest.yaml
+gatlingDockerfileDir: gatling
+startupTimeoutSec: 1800 # 30min
+execTimeoutSec: 10800 # 3h
+slackConfig:
+  webhookURL: slack-webhook-url
+  mentionText: <@targetMemberID>
+services:
+  - name: sample-service
+    spreadsheetID: sample-sheets-id
+    failFast: false
+    targetPercentile:
+    targetLatency:
+    targetPodConfig:
+      contextName: target-pod-context-name
+      namespace: sample-namespace
+      labelKey: run
+      labelValue: sample-api
+      containerName: sample-api
+    scenarioSpecs:
+      - name: case-1
+        subName: 10rps
+        testScenarioSpec:
+          simulationClass: SampleSimulation
+          parallelism: 1
+          env:
+            - name: ENV
+              value: "dev"
+            - name: CONCURRENCY
+              value: "10"
+            - name: DURATION
+              value: "180"
+      - name: case-2
+        subName: 20rps
+        testScenarioSpec:
+          simulationClass: SampleSimulation
+          parallelism: 1
+          env:
+            - name: ENV
+              value: "dev"
+            - name: CONCURRENCY
+              value: "20"
+            - name: DURATION
+              value: "180"

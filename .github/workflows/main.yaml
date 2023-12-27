@@ -1,0 +1,50 @@
+name: CI/CD for main branch
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+    types: [opened, synchronize]
+
+permissions:
+  contents: 'read'
+  actions: 'read'
+
+jobs:
+  check-lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: "go.mod"
+          cache: false
+
+      - name: lint
+        uses: golangci/golangci-lint-action@v3
+        # NOTE: lint target list is defined at https://golangci-lint.run/usage/linters/#enabled-by-default-linters
+        with:
+          # Require: The version of golangci-lint to use.
+          # When `install-mode` is `binary` (default) the value can be v1.2 or v1.2.3 or `latest` to use the latest version.
+          # When `install-mode` is `goinstall` the value can be v1.2.3, `latest`, or the hash of a commit.
+          version: v1.53
+          args: --timeout=10m
+
+  check-test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: "go.mod"
+          cache: false
+
+      - name: test
+        run: |
+          go test -v ./... -timeout 120s
+
