@@ -96,9 +96,14 @@ serviceは同一の負荷試験対象に関する1つ以上の負荷試験シナ
 `base_manifest.yaml`にはGatlingリソースのKubernetesマニフェストのうち、負荷試験ごとに共通する値を設定するフィールドを記述します。  
 GatlingリソースのKubernetesマニフェストのフィールドについては、[Gatling OperatorのAPI Reference](https://github.com/st-tech/gatling-operator/blob/main/docs/api.md#gatling)を参照してください。
 
-`base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに異なる値が設定されます。  
-これらのフィールドの値は、Gatling Commanderの実行時に`config.yaml`の値でそれぞれ置き換えられます。  
-そのため、`base_manifest.yaml`での値の変更は不要です。
+`base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに異なる値が設定されます。これらのフィールドの値は、Gatling Commanderの実行時に`config.yaml`の値でそれぞれ置き換えられます。そのため、`base_manifest.yaml`での値の変更は不要です。
+
+※ Gatling Commanderは`base_manifest.yaml`の値を`config.yaml`の値で置き換える前に、一度GoのGatling構造体のオブジェクトにその値を読み込みます。そのため、`base_manifest.yaml`の各フィールドの値の型はGatling構造体の各フィールドの値の型と一致する必要があります。型が一致しない場合次のようなエラーが発生します。
+
+```go
+json: cannot unmarshal string into Go struct field TestScenarioSpec.spec.testScenarioSpec.parallelism of type int32
+```
+
 
 `base_manifest.yaml`のうち、`config.yaml`の値で置き換えられるフィールドについて説明します。
 

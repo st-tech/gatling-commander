@@ -27,8 +27,13 @@ Configuration values for the load test are written in `config/config.yaml`.
 
 The `base_manifest.yaml` describes the common values for each load test in the Kubernetes manifest of the Gatling Resource.
 
-Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each load test. The value of this field will be replaced by the value in `config.yaml` respectively when Gatling Commander runs.
-Therefore, setting values to fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` is not necessary.
+Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each load test. The value of this field will be replaced by the value in `config.yaml` respectively when Gatling Commander runs. Therefore, setting values to fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` is not necessary.
+
+\* Gatling Commander once loads `base_manifest.yaml` value to Gatling struct object before it replaces the value by `config.yaml`. So the type of `base_manifest.yaml` field value must be matched to Gatling struct field one. If type not match, an error like following occur.
+
+```go
+json: cannot unmarshal string into Go struct field TestScenarioSpec.spec.testScenarioSpec.parallelism of type int32
+```
 
 The location and file name of `config.yaml` and `base_manifest.yaml` can be any value.  
 For the `config.yaml` path, specify the value of the `--config` option when executing the command.  
