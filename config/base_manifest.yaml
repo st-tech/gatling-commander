@@ -40,7 +40,7 @@ spec:
     provider: "slack"
     secretName: "gatling-notification-slack-secrets"
   testScenarioSpec:
-    parallelism: <config.yaml overrides this field> # will be overrided by services[].scenarioSpecs[].testScenarioSpec.parallelism field value. ex: 1
+    parallelism: 1 # <config.yaml overrides this field> # will be overrided by services[].scenarioSpecs[].testScenarioSpec.parallelism field value. ex: 1
     simulationClass: <config.yaml overrides this field> # will be overrided by services[].scenarioSpecs[].testScenarioSpec.simulationClass field value. ex: SampleSimulation
     env: # will be overrided by services[].scenarioSpecs[].testScenarioSpec.env[] field value. ex: `env: [{name: ENV, value: "dev"}, {name: CONCURRENCY, value: "20"}]`
       - name: <config.yaml overrides this field>
