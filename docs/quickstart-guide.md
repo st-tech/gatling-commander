@@ -121,8 +121,7 @@ Gatling Commander creates an object for a Gatling Resource, a Kubernetes Custom 
 The `base_manifest.yaml` is Kubernetes manifest for Gatling Resource.  
 The `base_manifest.yaml` has the common values for each load test for the Gatling Resource.
 
-Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each loadtest. The value of this field will be replaced by the corresponding value in `config.yaml` respectively when Gatling Commander is run.  
-Therefore, setting values to fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` is not necessary.
+Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are overwritten by `config.yaml` value for each load test. Therefore, multiple loadtests can be run consecutively without changing the value of `base_manifest.yaml`.
 
 For information on how to write Kubernetes manifest for Gatling Resource (`config/base_manifest.yaml`), see the [samples YAML file](https://github.com/st-tech/gatling-operator/blob/main/config/samples/gatling-operator_v1alpha1_gatling01.yaml) which is provided in st-tech/gatling-operator repository, and create manifest for your environment.
 
