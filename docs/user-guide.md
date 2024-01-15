@@ -27,7 +27,7 @@ Configuration values for the load test are written in `config/config.yaml`.
 
 The `base_manifest.yaml` describes the common values for each load test in the Kubernetes manifest of the Gatling Resource.
 
-Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each load test. The value of this field will be replaced by the value in `config.yaml` respectively when Gatling Commander runs. Therefore, setting values to fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` is not necessary.
+Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are overwritten by `config.yaml` value for each load test. Therefore, multiple loadtests can be run consecutively without changing the value of `base_manifest.yaml`.
 
 \* Gatling Commander once loads `base_manifest.yaml` value to Gatling struct object before it replaces the value by `config.yaml`. So the type of `base_manifest.yaml` field value must be matched to Gatling struct field one. If type not match, an error like following occur.
 
@@ -103,8 +103,7 @@ This section describes the configuration values in `config.yaml` for each indivi
 The `base_manifest.yaml` describes the fields in the Kubernetes manifest of the Gatling Resource that set common values for each load test.  
 For more information about the fields in the Kubernetes manifest of the Gatling Resource, see [Gatling Operator API Reference](https://github.com/st-tech/gatling-operator/blob/main/docs/api.md#gatling).
 
-Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are set to different values for each loadtest. The value of this field will be replaced by the corresponding value in `config.yaml` respectively when Gatling Commander is run.  
-Therefore, setting values to fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` is not necessary.
+Fields marked `<config.yaml overrides this field>` in `base_manifest.yaml` are overwritten by `config.yaml` value for each load test. Therefore, the values of these fields don't need to be changed in `base_manifest.yaml`.
 
 This section describes the fields in `base_manifest.yaml` that are replaced by values in `config.yaml`.
 

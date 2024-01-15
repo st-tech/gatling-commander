@@ -121,8 +121,7 @@ Gatling CommanderではGatling Operatorで利用するKubernetesのCustom Resour
 `base_manifest.yaml`はGatlingリソースのKubernetesマニフェストです。  
 `base_manifest.yaml`にはGatlingリソースについて、負荷試験ごとに共通の値を記述します。
 
-`base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに異なる値が設定されます。こちらのフィールドの値は、Gatling Commanderの実行時に`config.yaml`の値でそれぞれ置き換えられます。  
-そのため`base_manifest.yaml`での値の設定は不要です。
+`base_manifest.yaml`に`<config.yaml overrides this field>`と記載があるフィールドは、負荷試験ごとに`config.yaml`の値で上書きされます。そのため、`base_manifest.yaml`の値を変更する事なく複数の負荷試験を連続して実行できます。
 
 `config/base_manifest.yaml`の記述については、[Gatling Operatorのサンプル](https://github.com/st-tech/gatling-operator/blob/main/config/samples/gatling-operator_v1alpha1_gatling01.yaml)を参考に、利用する環境に合わせて作成してください。  
 詳細については[User Guide](./user-guide.jp.md)を参照してください。
