@@ -70,11 +70,11 @@ The report example table is below.
 
 |  4rps   | ENV=dev, ... ,FEATURE_CACHE_HIT_RATIO=0.38, |      180     |         40          |
 
-| max (ms) | mean (ms) | 50%ile latency (ms) | 75%ile latency (ms) | 95%ile latency (ms) |
+| max (ms) | mean (ms) | 50%tile latency (ms) | 75%tile latency (ms) | 95%tile latency (ms) |
 
 |   1107   |     51    |          31         |          55         |          64         |
 
-| 99%ile latency (ms) | failed | t < 800 | 800 < t <= 1200 | 1200 < t | cpu usage mean (%) | memory usage mean (%) |
+| 99%tile latency (ms) | failed | t < 800 | 800 < t <= 1200 | 1200 < t | cpu usage mean (%) | memory usage mean (%) |
 
 |          674        |    0   |   100   |         0       |     0    |         15.5       |         22.3          |
 */
@@ -230,10 +230,10 @@ func (op *spreadsheetOperator) SetColumnHeader(targetSheet *sheets.Sheet) (*shee
 		concurrencyColumnName:                    "concurrency (req/s)",
 		maxLatencyColumnName:                     "max (ms)",
 		meanLatencyColumnName:                    "mean (ms)",
-		fiftiethPercentileColumnName:             "50%ile latency (ms)",
-		seventyfifthPercentileColumnName:         "75%ile latency (ms)",
-		ninetyfifthPercentileColumnName:          "95%ile latency (ms)",
-		ninetyninthPercentileColumnName:          "99%ile latency (ms)",
+		fiftiethPercentileColumnName:             "50%tile latency (ms)",
+		seventyfifthPercentileColumnName:         "75%tile latency (ms)",
+		ninetyfifthPercentileColumnName:          "95%tile latency (ms)",
+		ninetyninthPercentileColumnName:          "99%tile latency (ms)",
 		failedPercentageColumnName:               "failed",
 		underEightHundredMilliSecCountColumnName: "t < 800",
 		betweenFromEightHundredToOneThousandTwoHundredMilliSecCountColumnName: "800 < t <= 1200",

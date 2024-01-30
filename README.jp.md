@@ -37,7 +37,7 @@ services:
   - name: sample-service
     spreadsheetID: sample-sheets-id
     failFast: false
-    targetPercentile: 99 # (%ile)
+    targetPercentile: 99 # (%tile)
     targetLatency: 500 # (ms)
     targetPodConfig:
       contextName: target-pod-context-name
