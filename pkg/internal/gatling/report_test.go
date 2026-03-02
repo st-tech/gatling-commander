@@ -31,6 +31,7 @@ import (
 
 	gatlingv1alpha1 "github.com/st-tech/gatling-operator/api/v1alpha1"
 	"github.com/stretchr/testify/assert"
+	corev1 "k8s.io/api/core/v1"
 )
 
 func TestGetPercentileLatency_Success(t *testing.T) {
@@ -114,6 +115,94 @@ func TestGetPercentileLatency_Fail(t *testing.T) {
 			latency, err := SampleReport.GetPercentileLatency(tt.input)
 			assert.Equal(t, tt.expected, err)
 			assert.Equal(t, float64(0), latency)
+		})
+	}
+}
+
+func TestExtractLoadtestConditionToReport(t *testing.T) {
+	tests := []struct {
+		name                string
+		testScenarioSpec    gatlingv1alpha1.TestScenarioSpec
+		expectedConcurrency string
+		expectedDuration    string
+		expectedCondition   string
+		expectError         bool
+	}{
+		{
+			name: "integer concurrency",
+			testScenarioSpec: gatlingv1alpha1.TestScenarioSpec{
+				Parallelism: 3,
+				Env: []corev1.EnvVar{
+					{Name: "CONCURRENCY", Value: "25"},
+					{Name: "DURATION", Value: "60"},
+				},
+			},
+			expectedConcurrency: "75",
+			expectedDuration:    "60",
+			expectedCondition:   "",
+		},
+		{
+			name: "decimal concurrency",
+			testScenarioSpec: gatlingv1alpha1.TestScenarioSpec{
+				Parallelism: 1,
+				Env: []corev1.EnvVar{
+					{Name: "CONCURRENCY", Value: "0.1"},
+					{Name: "DURATION", Value: "30"},
+				},
+			},
+			expectedConcurrency: "0.1",
+			expectedDuration:    "30",
+			expectedCondition:   "",
+		},
+		{
+			name: "decimal concurrency resulting in integer",
+			testScenarioSpec: gatlingv1alpha1.TestScenarioSpec{
+				Parallelism: 2,
+				Env: []corev1.EnvVar{
+					{Name: "CONCURRENCY", Value: "1.5"},
+					{Name: "DURATION", Value: "60"},
+				},
+			},
+			expectedConcurrency: "3",
+			expectedDuration:    "60",
+			expectedCondition:   "",
+		},
+		{
+			name: "with extra env vars as condition",
+			testScenarioSpec: gatlingv1alpha1.TestScenarioSpec{
+				Parallelism: 1,
+				Env: []corev1.EnvVar{
+					{Name: "CONCURRENCY", Value: "0.5"},
+					{Name: "DURATION", Value: "120"},
+					{Name: "RAMP_DURATION", Value: "10"},
+				},
+			},
+			expectedConcurrency: "0.5",
+			expectedDuration:    "120",
+			expectedCondition:   "RAMP_DURATION=10,",
+		},
+		{
+			name: "invalid concurrency value",
+			testScenarioSpec: gatlingv1alpha1.TestScenarioSpec{
+				Parallelism: 1,
+				Env: []corev1.EnvVar{
+					{Name: "CONCURRENCY", Value: "abc"},
+				},
+			},
+			expectError: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			concurrency, duration, condition, err := ExtractLoadtestConditionToReport(tt.testScenarioSpec)
+			if tt.expectError {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, tt.expectedConcurrency, concurrency)
+				assert.Equal(t, tt.expectedDuration, duration)
+				assert.Equal(t, tt.expectedCondition, condition)
+			}
 		})
 	}
 }

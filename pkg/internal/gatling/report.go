@@ -96,11 +96,11 @@ func ExtractLoadtestConditionToReport(
 		case "DURATION":
 			duration = field.Value
 		case "CONCURRENCY":
-			singleConcurrency, err := strconv.Atoi(field.Value)
+			singleConcurrency, err := strconv.ParseFloat(field.Value, 64)
 			if err != nil {
 				return "", "", "", err
 			}
-			concurrency = fmt.Sprintf("%v", testScenarioSpec.Parallelism*int32(singleConcurrency))
+			concurrency = strconv.FormatFloat(float64(testScenarioSpec.Parallelism)*singleConcurrency, 'f', -1, 64)
 		default:
 			condition += fmt.Sprintf("%v=%v,", field.Name, field.Value)
 		}

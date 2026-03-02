@@ -1,6 +1,6 @@
 module github.com/st-tech/gatling-commander
 
-go 1.20
+go 1.22.2
 
 require (
 	cloud.google.com/go/storage v1.30.1
