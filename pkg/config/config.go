@@ -60,7 +60,7 @@ func (c *Config) ValidateFieldValue() error {
 		return fmt.Errorf("config param gatlingContextName is required")
 	}
 	if c.ImageRepository == "" {
-		return fmt.Errorf("config param imageRepostory is required")
+		return fmt.Errorf("config param imageRepository is required")
 	}
 	if c.ImagePrefix == "" {
 		return fmt.Errorf("config param imagePrefix is required")
@@ -72,10 +72,10 @@ func (c *Config) ValidateFieldValue() error {
 		return fmt.Errorf("config param baseManifest is required")
 	}
 	if c.StartupTimeoutSec == 0 {
-		return fmt.Errorf("config param startupTimeout is required")
+		return fmt.Errorf("config param startupTimeoutSec is required")
 	}
 	if c.ExecTimeoutSec == 0 {
-		return fmt.Errorf("config param execTimeout is required")
+		return fmt.Errorf("config param execTimeoutSec is required")
 	}
 	serviceNames := make([]string, 0, len(c.Services))
 	for _, service := range c.Services {

@@ -67,7 +67,7 @@ func TestCheckTimeout(t *testing.T) {
 		{
 			name:     "duration exceeded timeout",
 			timeout:  1,
-			expected: fmt.Errorf("timeout %v execeeded", 1),
+			expected: fmt.Errorf("timeout %v exceeded", 1),
 		},
 		{
 			name:     "duration equal timeout",

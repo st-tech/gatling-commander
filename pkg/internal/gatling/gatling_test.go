@@ -127,7 +127,7 @@ func TestWaitGatlingJobStartup_ExpectedFail(t *testing.T) {
 			name:     "wait startup failed with timeout",
 			gatling:  noRunnerStartTimeGatling,
 			timeout:  1,
-			expected: fmt.Errorf("timeout %v execeeded", 1),
+			expected: fmt.Errorf("timeout %v exceeded", 1),
 		},
 	}
 	for _, tt := range tests {
@@ -284,7 +284,7 @@ func testCreateGatling(cl client.Client, newGatling *gatlingv1alpha1.Gatling) er
 		&foundGatling,
 	)
 	if err != nil {
-		return fmt.Errorf("unexpected error occured when get gatling object %v", err)
+		return fmt.Errorf("unexpected error occurred when get gatling object %v", err)
 	}
 	return nil
 }

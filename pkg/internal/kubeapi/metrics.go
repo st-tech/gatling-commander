@@ -141,7 +141,7 @@ FetchContainerMetricsMean returns container resources value mean.
 
 Fetch metrics value every 5 seconds until informerCh get value or context done.
 Cpu and Memory value is rounded and cast from *inf.Dec to int64.
-If error occured this error only log error and continue to run. (not returns error object)
+If error occurred this error only log error and continue to run. (not returns error object)
 */
 func FetchContainerMetricsMean(
 	ctx context.Context,

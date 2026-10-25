@@ -116,7 +116,7 @@ func TestValidateFieldValue(t *testing.T) {
 		{
 			name:     "lack of config imageRepository field value",
 			config:   noImgRepoField,
-			expected: fmt.Errorf("config param imageRepostory is required"),
+			expected: fmt.Errorf("config param imageRepository is required"),
 		},
 		{
 			name:     "lack of config imagePrefix field value",
@@ -136,12 +136,12 @@ func TestValidateFieldValue(t *testing.T) {
 		{
 			name:     "lack of config startupTimeoutSec field value",
 			config:   noStartupTimeoutSecField,
-			expected: fmt.Errorf("config param startupTimeout is required"),
+			expected: fmt.Errorf("config param startupTimeoutSec is required"),
 		},
 		{
 			name:     "lack of config execTimeoutSec field value",
 			config:   noExecTimeoutSecField,
-			expected: fmt.Errorf("config param execTimeout is required"),
+			expected: fmt.Errorf("config param execTimeoutSec is required"),
 		},
 		{
 			name:     "lack of config service name field value",

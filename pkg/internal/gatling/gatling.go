@@ -97,7 +97,7 @@ func CreateGatling(ctx context.Context, cl ctrlClient.Client, gatling *gatlingv1
 WaitGatlingJobStartup wait until gatling job started.
 
 Check every 5 seconds until Status.RunnerStartTime field value is set.
-Except for above case, context Done or over timeout threshold, or something error occured will finish loop.
+Except for above case, context Done or over timeout threshold, or something error occurred will finish loop.
 Before finish loop, cleanupGatlingJob is called and delete existing gatling object.
 */
 func WaitGatlingJobStartup(
@@ -141,7 +141,7 @@ WaitGatlingJobRunning wait until gatling Job completed.
 
 Check every 10 seconds until Status.RunnerCompleted and Status.ReportCompleted field value is set.
 Check Status.RunnerStartTime field value and if its value not set (0) return error.
-Except for above case, context Done or over timeout threshold, or something error occured will finish loop.
+Except for above case, context Done or over timeout threshold, or something error occurred will finish loop.
 Before finish loop except for succeeded case, cleanupGatlingJob is called and delete existing gatling object.
 */
 func WaitGatlingJobRunning(

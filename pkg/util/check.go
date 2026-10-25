@@ -47,7 +47,7 @@ func CheckDuplicate(target []string) error {
 // CheckTimeout checks duration value is not exceeded timeout value.
 func CheckTimeout(timeout int32, duration int32) error {
 	if duration > timeout {
-		return fmt.Errorf("timeout %v execeeded", timeout)
+		return fmt.Errorf("timeout %v exceeded", timeout)
 	}
 	return nil
 }

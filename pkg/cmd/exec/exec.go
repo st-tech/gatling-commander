@@ -143,7 +143,7 @@ Per-service loadtests are run in parallel.
 Each loadtest of service run in order.
 If failFast or targetLatency value is set and loadtest finished with this condition, next loadtest of same service is
 not executed. (checkContinueToExec)
-The error occured in each loadtest will be output after all loadtest finished.
+The error occurred in each loadtest will be output after all loadtest finished.
 */
 func runExec(cmd *cobra.Command, config *cfg.Config, flags *execFlags) error {
 	ctx, cancel := context.WithCancel(context.Background())
@@ -198,7 +198,7 @@ func runExec(cmd *cobra.Command, config *cfg.Config, flags *execFlags) error {
 				scenarioSubName := scenarioSpec.SubName
 				/*
 					loadtestExecError struct type has err field.
-					when error occured, write it to this field and log at parent function too.
+					when error occurred, write it to this field and log at parent function too.
 				*/
 				occuredErr := loadtestExecError{
 					serviceName:  serviceName,
@@ -500,7 +500,7 @@ func writeReportToSpreadsheets(
 	sheetTitle := fmt.Sprintf("%v-%v", scenarioSpec.Name, time.Now().Format("20060102"))
 	targetSheet, err := op.FindSheet(sheetTitle)
 	if err != nil && !errors.Is(err, &sheetTools.SheetNotFoundError{}) {
-		return fmt.Errorf("unexpected error occured when FindSheet, %w", err)
+		return fmt.Errorf("unexpected error occurred when FindSheet, %w", err)
 	}
 	if errors.Is(err, &sheetTools.SheetNotFoundError{}) {
 		targetSheet, err = op.AddSheet(sheetTitle)
