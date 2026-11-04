@@ -4,10 +4,13 @@
 #
 # Gatling is a highly capable load testing tool.
 
-FROM openjdk:21-ea-21-jdk-slim-bullseye
+# openjdk:*-ea images are deprecated and bullseye is EOL. Use the maintained Temurin JDK 21 (Ubuntu 24.04).
+FROM eclipse-temurin:21-jdk-noble
 
 # create user/group
-RUN groupadd -g 1000 gatling && \
+# The Ubuntu base image already has the "ubuntu" user with uid/gid 1000. Remove it to keep gatling at 1000.
+RUN userdel -r ubuntu && \
+  groupadd -g 1000 gatling && \
   useradd -l -u 1000 -m gatling -g gatling
 
 # working directory for gatling
